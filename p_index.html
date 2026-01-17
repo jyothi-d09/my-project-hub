@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50 Projects Hub | Python & Web Guide</title>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --python-color: #ffd43b;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: #1e293b;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { opacity: 0.8; margin-top: 10px; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin: -30px auto 40px;
+        }
+
+        #searchInput {
+            width: 90%;
+            max-width: 600px;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-top: 6px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Python specific highlight */
+        .card.python-card { border-top-color: #3776ab; }
+
+        .tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 4px 12px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: #0f172a; }
+        .tech-stack { color: #6366f1; font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+        .use-case { font-size: 15px; line-height: 1.5; margin-bottom: 15px; color: #475569; }
+        
+        .guide-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            border-left: 3px solid #cbd5e1;
+        }
+        
+        .guide-box strong { color: #1e293b; display: block; margin-bottom: 5px; }
+
+        footer { text-align: center; padding: 40px; color: #64748b; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .project-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Project Hub Pro</h1>
+    <p>50 Projects with Python, Web Dev, and Automation Guides</p>
+</header>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search Python, JavaScript, API..." onkeyup="filterProjects()">
+    </div>
+
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterCategory('All', this)">All Projects</button>
+        <button class="filter-btn" onclick="filterCategory('Beginner', this)">Beginner</button>
+        <button class="filter-btn" onclick="filterCategory('Intermediate', this)">Intermediate</button>
+        <button class="filter-btn" onclick="filterCategory('Advanced', this)">Advanced</button>
+        <button class="filter-btn" onclick="filterCategory('Python', this)">Python Special</button>
+    </div>
+
+    <div class="project-grid" id="projectGrid"></div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Project Hub - Made for Developers</p>
+</footer>
+
+<script>
+    const projects = [
+        // PYTHON PROJECTS (15 Projects)
+        { title: "YouTube Video Downloader", cat: "Python", tech: "Python (pytube)", use: "Download videos from URL automatically.", guide: "Install pytube, create a YouTube object with URL, and use stream.download()." },
+        { title: "Web Scraper (Amazon Prices)", cat: "Python", tech: "Python, BeautifulSoup", use: "Track product price drops automatically.", guide: "Use requests to get HTML, parse tags with BS4, and print the price text." },
+        { title: "Desktop Voice Assistant", cat: "Python", tech: "Python, SpeechLib", use: "Control PC using voice commands.", guide: "Use SpeechRecognition for input and pyttsx3 for voice output responses." },
+        { title: "Automated Email Sender", cat: "Python", tech: "Python (smtplib)", use: "Send bulk emails for marketing/alerts.", guide: "Setup SMTP server details, login, and use sendmail() with a loop." },
+        { title: "Face Detection System", cat: "Python", tech: "Python, OpenCV", use: "Detect faces in real-time camera feed.", guide: "Load Haar Cascade XML file and use detectMultiScale() on video frames." },
+        { title: "PDF Merger & Splitter", cat: "Python", tech: "Python (PyPDF2)", use: "Combine multiple PDFs into one.", guide: "Read PDF files using PdfReader and append pages to a PdfWriter object." },
+        { title: "Instagram Bot", cat: "Python", tech: "Python (Instapy)", use: "Automate likes and follows for growth.", guide: "Use Instapy library to login and set automation rules for tags." },
+        { title: "News Summarizer", cat: "Python", tech: "Python, NLTK", use: "Read long news and get 3-line summary.", guide: "Scrape news text and use Natural Language Processing to find key sentences." },
+        { title: "Stock Trend Visualizer", cat: "Python", tech: "Python, Matplotlib", use: "Show stock growth in beautiful graphs.", guide: "Fetch data using yfinance and plot 'Close' prices using plt.plot()." },
+        { title: "Crypto Price Tracker", cat: "Python", tech: "Python, Requests", use: "Get live Bitcoin/Eth prices on terminal.", guide: "Call CoinGecko API every 60 seconds and display current market rate." },
+        { title: "Bulk File Renamer", cat: "Python", tech: "Python (os module)", use: "Rename 1000s of files in one click.", guide: "Loop through directory using os.listdir() and use os.rename() logic." },
+        { title: "System Health Monitor", cat: "Python", tech: "Python (psutil)", use: "Check CPU/RAM usage alerts.", guide: "Use psutil.cpu_percent() and trigger alert if usage is above 90%." },
+        { title: "Image Background Remover", cat: "Python", tech: "Python (rembg)", use: "Remove image backgrounds automatically.", guide: "Input image, use rembg.remove() function, and save as transparent PNG." },
+        { title: "Simple Chatbot (AI)", cat: "Python", tech: "Python, ChatterBot", use: "Talk to an AI bot for basic queries.", guide: "Train the bot using ListTrainer with a set of conversation strings." },
+        { title: "QR Code Generator Pro", cat: "Python", tech: "Python (qrcode)", use: "Create QR codes for WiFi or Links.", guide: "Use qrcode.make('text') and save the output as an image file." },
+
+        // WEB BEGINNER (10 Projects)
+        { title: "Personal Portfolio", cat: "Beginner", tech: "HTML, CSS", use: "Showcase your resume online.", guide: "Build sections for About, Skills, and Contact using CSS Grid." },
+        { title: "Digital Clock", cat: "Beginner", tech: "JavaScript", use: "Real-time clock for websites.", guide: "Update innerHTML using new Date() inside a setInterval function." },
+        { title: "BMI Calculator", cat: "Beginner", tech: "JS, HTML", use: "Health check tool for users.", guide: "Take weight/height, apply formula, and show status using if-else." },
+        { title: "Tip Calculator", cat: "Beginner", tech: "JavaScript", use: "Split bills at restaurants.", guide: "Multiply bill by tip percentage and divide by number of people." },
+        { title: "Color Flipper", cat: "Beginner", tech: "JS, CSS", use: "Interactive UI background changer.", guide: "Create array of hex codes and apply random index to body background." },
+        { title: "Task Tracker (To-Do)", cat: "Beginner", tech: "JS, LocalStorage", use: "Save daily tasks in browser.", guide: "Use JSON.stringify to save tasks and JSON.parse to load them back." },
+        { title: "Quote Generator", cat: "Beginner", tech: "JavaScript", use: "Daily motivation on clicks.", guide: "Store 20 quotes in array and use Math.random() for selection." },
+        { title: "Unit Converter", cat: "Beginner", tech: "JS, CSS", use: "Convert KG to LBS, CM to Inch.", guide: "Use event listener 'input' to update values in real-time." },
+        { title: "Palindrome Checker", cat: "Beginner", tech: "JS Logic", use: "Word logic testing tool.", guide: "Split, reverse, and join the string to compare with original." },
+        { title: "Simple Counter", cat: "Beginner", tech: "JavaScript", use: "Basic tally counter tool.", guide: "Create increment/decrement functions to update a variable." },
+
+        // INTERMEDIATE (15 Projects)
+        { title: "Weather App", cat: "Intermediate", tech: "Fetch API, JS", use: "Live weather by city name.", guide: "Fetch data from OpenWeather API and display icons based on status." },
+        { title: "Dictionary App", cat: "Intermediate", tech: "Free Dictionary API", use: "Search word meanings & audio.", guide: "Display definitions, synonyms, and play audio using the API response." },
+        { title: "Expense Tracker", cat: "Intermediate", tech: "JS, LocalStorage", use: "Manage monthly budget.", guide: "Track 'Income' vs 'Expense' and show the remaining balance." },
+        { title: "Movie Finder", cat: "Intermediate", tech: "OMDb API", use: "Search movie ratings & cast.", guide: "Display movie posters and IMDB ratings using search query." },
+        { title: "Recipe Finder", cat: "Intermediate", tech: "Edamam API", use: "Search dishes by ingredients.", guide: "Filter recipes and show calories, ingredients, and image." },
+        { title: "GitHub Profiler", cat: "Intermediate", tech: "GitHub API", use: "Check developer repositories.", guide: "Show avatar, bio, and top 5 repos of any GitHub username." },
+        { title: "Password Generator", cat: "Intermediate", tech: "JS Logic", use: "Create hack-proof passwords.", guide: "Randomly pick from symbols, numbers, and letters based on length." },
+        { title: "Currency Converter", cat: "Intermediate", tech: "ExchangeRate API", use: "Live money conversion.", guide: "Get latest rates and multiply with user input amount." },
+        { title: "Countdown Timer", cat: "Intermediate", tech: "JavaScript", use: "Track event deadlines.", guide: "Calculate difference between two dates and format into DHMS." },
+        { title: "Markdown Previewer", cat: "Intermediate", tech: "Marked.js", use: "Live MD to HTML converter.", guide: "Use a library to convert textarea input into formatted HTML." },
+        { title: "Quiz Platform", cat: "Intermediate", tech: "JSON, JS", use: "Online test with score.", guide: "Show 1 question at a time and show total score at the end." },
+        { title: "Stopwatch Pro", cat: "Intermediate", tech: "JavaScript", use: "Track lap times accurately.", guide: "Use requestAnimationFrame for high precision timing." },
+        { title: "Type Speed Test", cat: "Intermediate", tech: "JS Logic", use: "Check typing speed (WPM).", guide: "Compare input with sample text and calculate time/accuracy." },
+        { title: "Notes Application", cat: "Intermediate", tech: "JS, LocalStorage", use: "Save sticky notes locally.", guide: "Create a grid of notes that persists even after page refresh." },
+        { title: "Image Gallery Pro", cat: "Intermediate", tech: "CSS Grid, JS", use: "Filterable image portfolio.", guide: "Filter images by categories like 'Nature', 'Tech', etc." },
+
+        // ADVANCED (10 Projects)
+        { title: "Real-time Chat App", cat: "Advanced", tech: "Socket.io, Node", use: "Instant messaging platform.", guide: "Use WebSockets to emit and receive messages without refresh." },
+        { title: "E-Commerce System", cat: "Advanced", tech: "React, Firebase", use: "Full online store experience.", guide: "Manage cart state and use Firebase for product storage." },
+        { title: "URL Shortener", cat: "Advanced", tech: "Node, MongoDB", use: "Custom short links creator.", guide: "Store long URL and short ID in DB; redirect on ID access." },
+        { title: "Attendance Tracker", cat: "Advanced", tech: "MERN Stack", use: "Track school/office presence.", guide: "Build an admin dashboard to mark and view attendance reports." },
+        { title: "Job Board Platform", cat: "Advanced", tech: "Full Stack", use: "Post and find job openings.", guide: "Implement search filters and a form to upload resumes." },
+        { title: "Inventory Manager", cat: "Advanced", tech: "SQL, Node.js", use: "Track shop stock levels.", guide: "Update database quantity on sales and send 'Low Stock' alerts." },
+        { title: "Portfolio Builder", cat: "Advanced", tech: "React, JSON", use: "Generate websites for others.", guide: "User fills form -> System renders a custom portfolio link." },
+        { title: "Library System", cat: "Advanced", tech: "Full Stack", use: "Manage book issues/returns.", guide: "Logic to track book availability and member due dates." },
+        { title: "Social Media Dash", cat: "Advanced", tech: "API, Chart.js", use: "Analyze social media growth.", guide: "Fetch stats and plot growth curves using Pie and Line charts." },
+        { title: "Learning Portal", cat: "Advanced", tech: "React, Firebase", use: "Course videos and tracking.", guide: "Host videos and mark chapters as completed in DB." }
+    ];
+
+    function displayProjects(data) {
+        const grid = document.getElementById('projectGrid');
+        grid.innerHTML = data.map(p => `
+            <div class="card ${p.cat === 'Python' ? 'python-card' : ''}">
+                <span class="tag">${p.cat}</span>
+                <h3>${p.title}</h3>
+                <div class="tech-stack">${p.tech}</div>
+                <div class="use-case"><strong>Use:</strong> ${p.use}</div>
+                <div class="guide-box">
+                    <strong>Logic:</strong> ${p.guide}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function filterProjects() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = projects.filter(p => 
+            p.title.toLowerCase().includes(query) || 
+            p.tech.toLowerCase().includes(query) ||
+            p.cat.toLowerCase().includes(query)
+        );
+        displayProjects(filtered);
+    }
+
+    function filterCategory(cat, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if(cat === 'All') displayProjects(projects);
+        else displayProjects(projects.filter(p => p.cat === cat));
+    }
+
+    // Initial Load
+    displayProjects(projects);
+</script>
+
+</body>
+</html>
